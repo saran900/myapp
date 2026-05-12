@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Voice of Students</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ========== LOGIN ========== -->
+  <div id="page-login" class="page active">
+    <div class="login-bg">
+      <div class="login-container">
+        <img src="logo.png" alt="Voice of Students" class="login-logo"/>
+        <h2 class="login-title">Voice of Students</h2>
+        <p class="login-sub">Sign in to continue learning</p>
+        <form onsubmit="doLogin(); return false;" autocomplete="on" style="width:100%;display:contents;">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="login-name" placeholder="Enter your full name" maxlength="30" autocomplete="name"/>
+        </div>
+        <div class="form-group">
+          <label>Class / Grade</label>
+          <input type="text" id="login-grade" placeholder="e.g. Grade 8 / Class 10" maxlength="20" autocomplete="organization"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password"/>
+        </div>
+        <div id="login-error" class="login-error hidden"></div>
+        <button type="submit" class="gold-btn" id="login-btn">Sign In →</button>
+        </form>
+        <p class="login-hint">Default password: <strong>student123</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== DASHBOARD ========== -->
+  <div id="page-dashboard" class="page">
+    <div class="topbar">
+      <img src="logo.png" alt="Voice of Students" class="topbar-logo"/>
+      <div class="topbar-right">
+        <span id="topbar-score" class="score-badge">⭐ 0 pts</span>
+        <span id="topbar-user" class="topbar-user"></span>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+    <div class="dashboard-hero">
+      <h1>Hello, <span id="hero-name"></span>! 👋</h1>
+      <p>Select a subject to start your journey</p>
+    </div>
+    <div class="card-grid">
+      <div class="subject-card" onclick="showSection('answer')">
+        <div class="card-icon">📝</div>
+        <div class="card-body"><h3>Answer in Our Words</h3><p>Express ideas in your own unique way — 240 levels</p></div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="subject-card" onclick="showSection('maths')">
+        <div class="card-icon">🔢</div>
+        <div class="card-body"><h3>Learn Maths</h3><p>From basic sums to algebra — 240 levels</p></div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="subject-card" onclick="showSection('story')">
+        <div class="card-icon">📖</div>
+        <div class="card-body"><h3>Story Writing</h3><p>Creative prompts at every level — 240 levels</p></div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="subject-card" onclick="showSection('psychology')">
+        <div class="card-icon">🧠</div>
+        <div class="card-body"><h3>Psychology Learning</h3><p>Concepts, scenarios and analysis — 240 levels</p></div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="subject-card leaderboard-card" onclick="showSection('leaderboard')">
+        <div class="card-icon">🏆</div>
+        <div class="card-body"><h3>Leaderboard</h3><p>See the top students globally</p></div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="subject-card magic-card" onclick="showSection('chat')">
+        <div class="card-icon">✨</div>
+        <div class="card-body"><h3>Magic Chat</h3><p>Talk live with students everywhere</p></div>
+        <span class="live-pill">LIVE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ANSWER IN OUR WORDS ========== -->
+  <div id="page-answer" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>📝 Answer in Our Words</h2>
+      <span class="section-score" id="answer-score-display">⭐ 0</span>
+    </div>
+    <div class="section-wrap">
+      <div id="answer-levels" class="levels-container"></div>
+      <div id="answer-question-area" class="question-area"></div>
+    </div>
+  </div>
+
+  <!-- ========== LEARN MATHS ========== -->
+  <div id="page-maths" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>🔢 Learn Maths</h2>
+      <span class="section-score" id="maths-score-display">⭐ 0</span>
+    </div>
+    <div class="section-wrap">
+      <div id="maths-levels" class="levels-container"></div>
+      <div id="maths-question-area" class="question-area"></div>
+    </div>
+  </div>
+
+  <!-- ========== STORY WRITING ========== -->
+  <div id="page-story" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>📖 Story Writing</h2>
+      <span class="section-score" id="story-score-display">⭐ 0</span>
+    </div>
+    <div class="section-wrap">
+      <div id="story-levels" class="levels-container"></div>
+      <div id="story-question-area" class="question-area"></div>
+    </div>
+  </div>
+
+  <!-- ========== PSYCHOLOGY ========== -->
+  <div id="page-psychology" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>🧠 Psychology Learning</h2>
+      <span class="section-score" id="psychology-score-display">⭐ 0</span>
+    </div>
+    <div class="section-wrap">
+      <div id="psychology-levels" class="levels-container"></div>
+      <div id="psychology-question-area" class="question-area"></div>
+    </div>
+  </div>
+
+  <!-- ========== LEADERBOARD ========== -->
+  <div id="page-leaderboard" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>🏆 Global Leaderboard</h2>
+      <button class="refresh-lb-btn" onclick="loadLeaderboard()">↻ Refresh</button>
+    </div>
+    <div class="lb-wrap">
+      <div class="lb-your-rank" id="lb-your-rank"></div>
+      <div id="lb-list" class="lb-list"><div class="lb-loading">Loading scores…</div></div>
+    </div>
+  </div>
+
+  <!-- ========== MAGIC CHAT ========== -->
+  <div id="page-chat" class="page">
+    <div class="section-topbar">
+      <button class="back-btn" onclick="showDashboard()">← Back</button>
+      <h2>✨ Magic Chat</h2>
+      <span class="live-dot-inline"></span>
+    </div>
+    <div class="chat-wrapper">
+      <div id="chat-error" class="chat-error hidden"></div>
+      <div id="chat-messages" class="chat-messages"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Type a message…"
+               onkeydown="if(event.key==='Enter') sendMessage()"/>
+        <button class="send-btn" onclick="sendMessage()">Send ➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TEACHER / ADMIN DASHBOARD ========== -->
+  <div id="page-admin" class="page">
+    <div class="topbar">
+      <img src="logo.png" alt="Voice of Students" class="topbar-logo"/>
+      <div class="admin-topbar-title">
+        <span class="admin-badge">TEACHER</span>
+        Voice of Students — Admin View
+      </div>
+      <button class="logout-btn" onclick="doAdminLogout()">Logout</button>
+    </div>
+    <div class="admin-wrap">
+      <div class="admin-summary-bar" id="admin-summary"></div>
+      <div class="admin-controls">
+        <input type="text" id="admin-search" placeholder="🔍 Search student by name…" oninput="filterAdminStudents()" class="admin-search-input"/>
+        <button class="refresh-lb-btn" onclick="loadAdminData()">↻ Refresh</button>
+      </div>
+      <div id="admin-student-list" class="admin-student-list">
+        <div class="lb-loading">Loading student data…</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Allow Enter key on login password
+    document.getElementById('login-pass').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') doLogin();
+    });
+  </script>
+</body>
+</html>
